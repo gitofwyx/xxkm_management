@@ -95,6 +95,6 @@
 	<!-- 验证码 -->
 	<import resource="application-kaptcha.xml" />
 	<import resource="shiro-context.xml" />
-	<import resource="mongodb-context.xml" />
+	<!--<import resource="mongodb-context.xml" />-->
 	<!-- <import resource="redis-context.xml" /> -->
 </beans>

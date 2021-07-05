@@ -38,13 +38,13 @@
     <!--SessionListener 载入-->
    
     <!-- <listener>
-       <listener-class>com.kelan.core.util.MySessionListener</listener-class>
+       <listener-class>com.xxk.core.util.MySessionListener</listener-class>
     </listener>  -->
    
     <!--ServletContextListener  载入-->
     <!--
     <listener>
-     <listener-class>com.kelan.core.util.LoadDataListener</listener-class>
+     <listener-class>com.xxk.core.util.LoadDataListener</listener-class>
 	</listener>
     -->
     
@@ -69,8 +69,8 @@
     <!-- 配置 responseFilter! -->
     <filter>
 		<filter-name>responseFilter</filter-name>
-		<filter-class>com.kelan.core.filters.ResponseStatusFilters
-		</filter-class>
+		<filter-class>com.xxk.core.filters.ResponseStatusFilters
+        </filter-class>
 		<!-- <async-supported>true</async-supported> -->
 		<init-param>
 			<param-name>encoding</param-name>
