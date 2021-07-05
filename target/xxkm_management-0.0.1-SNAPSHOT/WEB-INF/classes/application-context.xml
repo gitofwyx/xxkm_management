@@ -18,7 +18,7 @@
 	<!-- enable transaction demarcation with annotations -->
 	<tx:annotation-driven />
 	<!-- 使用annotation 自动注册bean, 并保证@Required、@Autowired的属性被注入 -->
-	<context:component-scan base-package="com.xxk">
+	<context:component-scan base-package="com.xxkm">
 		<context:exclude-filter type="annotation"
 			expression="org.springframework.stereotype.Controller" />
 		<context:exclude-filter type="annotation"
@@ -47,12 +47,12 @@
 		<property name="configLocation">
 			<value>/WEB-INF/config/mybatis-config.xml</value>
 		</property>
-		<property name="mapperLocations" value="classpath*:/com/xxk/**/*Mapper.xml" />
+		<property name="mapperLocations" value="classpath*:/com/xxkm/**/*Mapper.xml" />
 	</bean>
 
 	<!-- 扫描basePackage下所有Dao接口 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.xxk.**.dao" />
+		<property name="basePackage" value="com.xxkm.**.dao" />
 	</bean>
 	
 	<!--使用spring的异步@Async简单定义方式 -->
@@ -70,7 +70,7 @@
         <task:scheduled ref="RedisTimetask" method="backupDatabase" cron="0 */30 * * * ?" /> 
     </task:scheduled-tasks>   -->
     <!-- 自动扫描的包名 -->    
-    <!-- <context:component-scan base-package="com.xxk.xxkm_management.web.timetask" /> -->
+    <!-- <context:component-scan base-package="com.xxkm.management.web.timetask" /> -->
 	
 	<!--配置事务 -->
 	<bean id="transactionManager"

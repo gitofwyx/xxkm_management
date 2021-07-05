@@ -13,7 +13,7 @@
 	default-lazy-init="true">
 
 	<!-- 自动扫描且只扫描@Controller -->
-	<context:component-scan base-package="com.xxk.xxkm_management"
+	<context:component-scan base-package="com.xxkm.management"
 		use-default-filters="false">
 		<context:include-filter type="annotation"
 			expression="org.springframework.stereotype.Controller" />
@@ -33,7 +33,7 @@
 		 <mvc:exclude-mapping path="/mapimage/**"/>
 		 <!--<mvc:exclude-mapping path="/route/rountbycity"/>-->
 		 <mvc:exclude-mapping path="/route/addPoints"/> 
-		 <bean class="com.xxk.core.interceptor.LoginInterceptor" />
+		 <bean class="com.xxkm.core.interceptor.LoginInterceptor" />
 		 </mvc:interceptor> 
 	 </mvc:interceptors> 
 
