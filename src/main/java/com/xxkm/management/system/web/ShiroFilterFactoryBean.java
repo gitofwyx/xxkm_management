@@ -45,7 +45,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * {@link org.springframework.beans.factory.FactoryBean FactoryBean} to be used in Spring-based web applications for
+ * {@link FactoryBean FactoryBean} to be used in Spring-based web applications for
  * defining the master Shiro Filter.
  * <h4>Usage</h4>
  * Declare a DelegatingFilterProxy in {@code web.xml}, matching the filter name to the bean id:
@@ -67,13 +67,13 @@ import java.util.Map;
  * &lt;/bean&gt;
  * </pre>
  * <h4>Filter Auto-Discovery</h4>
- * While there is a {@link #setFilters(java.util.Map) filters} property that allows you to assign a filter beans
+ * While there is a {@link #setFilters(Map) filters} property that allows you to assign a filter beans
  * to the 'pool' of filters available when defining {@link #setFilterChainDefinitions(String) filter chains}, it is
  * optional.
  * <p/>
  * This implementation is also a {@link BeanPostProcessor} and will acquire
- * any {@link javax.servlet.Filter Filter} beans defined independently in your Spring application context.  Upon
- * discovery, they will be automatically added to the {@link #setFilters(java.util.Map) map} keyed by the bean ID.
+ * any {@link Filter Filter} beans defined independently in your Spring application context.  Upon
+ * discovery, they will be automatically added to the {@link #setFilters(Map) map} keyed by the bean ID.
  * That ID can then be used in the filter chain definitions, for example:
  *
  * <pre>
@@ -262,7 +262,7 @@ public class ShiroFilterFactoryBean implements FactoryBean, BeanPostProcessor {
 
     /**
      * Sets the filterName-to-Filter map of filters available for reference when creating
-     * {@link #setFilterChainDefinitionMap(java.util.Map) filter chain definitions}.
+     * {@link #setFilterChainDefinitionMap(Map) filter chain definitions}.
      * <p/>
      * <b>Note:</b> This property is optional:  this {@code FactoryBean} implementation will discover all beans in the
      * web application context that implement the {@link Filter} interface and automatically add them to this filter
@@ -309,7 +309,7 @@ public class ShiroFilterFactoryBean implements FactoryBean, BeanPostProcessor {
     }
 
     /**
-     * A convenience method that sets the {@link #setFilterChainDefinitionMap(java.util.Map) filterChainDefinitionMap}
+     * A convenience method that sets the {@link #setFilterChainDefinitionMap(Map) filterChainDefinitionMap}
      * property by accepting a {@link java.util.Properties Properties}-compatible string (multi-line key/value pairs).
      * Each key/value pair must conform to the format defined by the
      * {@link FilterChainManager#createChain(String,String)} JavaDoc - each property key is an ant URL
@@ -346,9 +346,9 @@ public class ShiroFilterFactoryBean implements FactoryBean, BeanPostProcessor {
     }
 
     /**
-     * Returns <code>{@link org.apache.shiro.web.servlet.AbstractShiroFilter}.class</code>
+     * Returns <code>{@link AbstractShiroFilter}.class</code>
      *
-     * @return <code>{@link org.apache.shiro.web.servlet.AbstractShiroFilter}.class</code>
+     * @return <code>{@link AbstractShiroFilter}.class</code>
      */
     public Class getObjectType() {
         return SpringShiroFilter.class;
@@ -404,13 +404,13 @@ public class ShiroFilterFactoryBean implements FactoryBean, BeanPostProcessor {
     /**
      * This implementation:
      * <ol>
-     * <li>Ensures the required {@link #setSecurityManager(org.apache.shiro.mgt.SecurityManager) securityManager}
+     * <li>Ensures the required {@link #setSecurityManager(SecurityManager) securityManager}
      * property has been set</li>
      * <li>{@link #createFilterChainManager() Creates} a {@link FilterChainManager} instance that reflects the
-     * configured {@link #setFilters(java.util.Map) filters} and
-     * {@link #setFilterChainDefinitionMap(java.util.Map) filter chain definitions}</li>
+     * configured {@link #setFilters(Map) filters} and
+     * {@link #setFilterChainDefinitionMap(Map) filter chain definitions}</li>
      * <li>Wraps the FilterChainManager with a suitable
-     * {@link org.apache.shiro.web.filter.mgt.FilterChainResolver FilterChainResolver} since the Shiro Filter
+     * {@link FilterChainResolver FilterChainResolver} since the Shiro Filter
      * implementations do not know of {@code FilterChainManager}s</li>
      * <li>Sets both the {@code SecurityManager} and {@code FilterChainResolver} instances on a new Shiro Filter
      * instance and returns that filter instance.</li>
@@ -494,7 +494,7 @@ public class ShiroFilterFactoryBean implements FactoryBean, BeanPostProcessor {
 
     /**
      * Inspects a bean, and if it implements the {@link Filter} interface, automatically adds that filter
-     * instance to the internal {@link #setFilters(java.util.Map) filters map} that will be referenced
+     * instance to the internal {@link #setFilters(Map) filters map} that will be referenced
      * later during filter chain construction.
      */
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
@@ -521,8 +521,8 @@ public class ShiroFilterFactoryBean implements FactoryBean, BeanPostProcessor {
      * Ordinarily the {@code AbstractShiroFilter} must be subclassed to additionally perform configuration
      * and initialization behavior.  Because this {@code FactoryBean} implementation manually builds the
      * {@link AbstractShiroFilter}'s
-     * {@link AbstractShiroFilter#setSecurityManager(org.apache.shiro.web.mgt.WebSecurityManager) securityManager} and
-     * {@link AbstractShiroFilter#setFilterChainResolver(org.apache.shiro.web.filter.mgt.FilterChainResolver) filterChainResolver}
+     * {@link AbstractShiroFilter#setSecurityManager(WebSecurityManager) securityManager} and
+     * {@link AbstractShiroFilter#setFilterChainResolver(FilterChainResolver) filterChainResolver}
      * properties, the only thing left to do is set those properties explicitly.  We do that in a simple
      * concrete subclass in the constructor.
      */
