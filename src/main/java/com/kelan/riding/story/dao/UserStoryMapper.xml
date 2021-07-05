@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kelan.riding.story.dao.UserStoryDao">
+	<sql id="columns">
+		id,keyWord,type,cType,provinceCode,cityCode,areaCode,createUnit,readNumber,collectNumber,
+		supportNumber,commentNumber,picId,address,remark,dataInfo,routeId,pointId,createUserId,createDate,
+		updateUserId,updateDate,deleteFlag,longitude,latitude,title
+	</sql>
+
+	<select id="getUserStory" parameterType="string"
+		resultType="com.kelan.riding.story.entity.UserStory">
+		select
+		<include refid="columns"></include>
+		from riding_user_story
+		where id=#{userStoryId}
+		and deleteFlag='0';
+	</select>
+	<!-- 修改故事 -->
+	<update id="updateUserStory" parameterType="com.kelan.riding.story.entity.UserStory">
+		update riding_user_story set remark=#{remark},createUserId=#{createUserId},
+		createDate=#{createDate},updateUserId=#{updateUserId},updateDate=#{updateDate},deleteFlag=#{deleteFlag},
+		longitude=#{longitude},latitude=#{latitude},title=#{title} where id =
+		#{id};
+	</update>
+
+	<!-- 添加故事 -->
+	<insert id="addUserStory" parameterType="com.kelan.riding.story.entity.UserStory">
+		insert into riding_user_story(
+		<include refid="columns"></include>
+		) values(
+		#{id},#{keyWord},#{type},#{cType},#{provinceCode},#{cityCode},#{areaCode},#{createUnit},
+		#{readNumber},#{collectNumber},#{supportNumber},#{commentNumber},
+		#{picId},#{address},#{remark},#{dataInfo},#{routeId},#{pointId},#{createUserId},#{createDate},#{updateUserId},
+		#{updateDate},#{deleteFlag},#{longitude},#{latitude},#{title});
+	</insert>
+
+	<!-- 根据用户名获取故事列表 -->
+	<select id="listUserStory" resultType="com.kelan.riding.story.entity.UserStory">
+		select
+		<include refid="columns"></include>
+		from riding_user_story where createUserId=#{0} limit #{1},#{2};
+	</select>
+
+	<!-- 根据节点ID获取故事信息 -->
+	<select id="getUserStoryByPoint" resultType="com.kelan.riding.story.entity.UserStory">
+		select <include refid="columns"></include>
+		from riding_user_story where pointId=#{0} and deleteFlag='0';
+	</select>
+	
+	<!-- 根据故事ID获取故事信息 -->
+	<select id="getUserStoryByRount" resultType="com.kelan.riding.story.entity.UserStory">
+		select <include refid="columns"></include>
+		from riding_user_story where createUserId=#{0} and routeId=#{1} and
+		deleteFlag='0';
+	</select>
+</mapper>

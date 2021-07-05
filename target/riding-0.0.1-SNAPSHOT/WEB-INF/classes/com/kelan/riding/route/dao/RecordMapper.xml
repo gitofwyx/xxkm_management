@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kelan.riding.route.dao.RecordDao"> 
+     <sql id="columns">id,keyWord,routeId,activeId,createUnit,coordinateX,coordinateY,coordinateZ,beginTime,
+                     endTime,joinPerson,duration,averageSpeed,presentspeedH,presentspeedL,picId,
+                     address,remark,createUserId,createDate,updateUserId,updateDate,deleteFlag,percent
+     </sql>
+     
+     <select id="RecordByUserPage" resultType="com.kelan.riding.route.entity.Record">
+      	select <include refid="columns"></include>
+           	from riding_record
+           	where createUserId=#{0}
+            and deleteFlag='0' ORDER BY createDate DESC limit #{1},#{2};
+     </select>
+    
+     <select id="checkRecordByUser" resultType="com.kelan.riding.route.entity.Record" parameterType="string">
+      	select <include refid="columns"></include>
+           	from riding_record
+           	where createUserId=#{userId}
+            and deleteFlag='0' ORDER BY createDate DESC;
+     </select>
+     
+     <select id="getUserRouteRecord" resultType="com.kelan.riding.route.entity.Record"  parameterType="string" >
+      	select <include refid="columns"></include>
+           	from riding_record
+           	where createUserId=#{0} and routeId=#{1} and deleteFlag='0';
+     </select>
+     
+     <update id="deleteRecord">
+            update riding_record set deleteFlag='1' where deleteFlag='0' and id=#{0};
+     </update>
+</mapper>

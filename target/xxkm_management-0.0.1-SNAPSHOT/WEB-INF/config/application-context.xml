@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+       http://www.springframework.org/schema/task  
+       http://www.springframework.org/schema/task/spring-task-3.1.xsd 
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd"
+	default-lazy-init="true">
+
+	<!-- enable autowire -->
+	<context:annotation-config />
+	<!-- enable transaction demarcation with annotations -->
+	<tx:annotation-driven />
+	<!-- 使用annotation 自动注册bean, 并保证@Required、@Autowired的属性被注入 -->
+	<context:component-scan base-package="com.kelan">
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.web.bind.annotation.ControllerAdvice" />
+	</context:component-scan>
+
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>/WEB-INF/config/jdbc.properties</value>
+				<value>/WEB-INF/config/mongodb.properties</value>
+				<value>/WEB-INF/config/redis.properties</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="${jdbc.driver}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+	</bean>
+
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation">
+			<value>/WEB-INF/config/mybatis-config.xml</value>
+		</property>
+		<property name="mapperLocations" value="classpath*:/com/kelan/**/*Mapper.xml" />
+	</bean>
+
+	<!-- 扫描basePackage下所有Dao接口 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.kelan.**.dao" />
+	</bean>
+	
+	<!--使用spring的异步@Async简单定义方式 -->
+	<!-- <task:annotation-driven /> -->
+	<!--异步定义推荐方式 -->
+	<!-- <context:annotation-config/>  
+    <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>   -->
+	<task:executor id="executor" pool-size="15" />
+	<task:scheduler id="Scheduler" pool-size="30" />
+	<task:annotation-driven executor="executor"
+		scheduler="Scheduler" />
+	<!-- <task:scheduled-tasks>  
+	    定时任务
+        这里表示的是每隔一个小时执行一次   
+        <task:scheduled ref="RedisTimetask" method="backupDatabase" cron="0 */30 * * * ?" /> 
+    </task:scheduled-tasks>   -->
+    <!-- 自动扫描的包名 -->    
+    <!-- <context:component-scan base-package="com.kelan.riding.web.timetask" /> -->
+	
+	<!--配置事务 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!--定义异常处理页面 -->
+	<bean id="exceptionResolver"
+		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<props>
+				<prop key="java.sql.SQLException">outException</prop>
+				<prop key="java.io.IOException">outException</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!--HttpSession -->
+	<!-- <bean id="sessionProvider" class="com.hg.core.session.HttpSessionProvider" 
+		/> -->
+	<!-- 验证码 -->
+	<import resource="application-kaptcha.xml" />
+	<import resource="shiro-context.xml" />
+	<import resource="mongodb-context.xml" />
+	<!-- <import resource="redis-context.xml" /> -->
+</beans>

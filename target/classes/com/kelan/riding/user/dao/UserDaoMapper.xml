@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kelan.riding.user.dao.UserDao">   
+      <sql id="columns">id,name,birth,sex,nickName,integral,rank,qq,phone,education,
+      marriage,roleId,createUnit,provinceCode,cityCode,areaCode,type,remark,address,account,password,dataInfo,keyWord,
+      createUserId,createDate,updateUserId,updateDate,deleteFlag</sql>
+       
+       <!--根据id获取用户信息 -->
+      <select id="getUserById" parameterType="string" resultType="com.kelan.riding.user.entity.User">
+           select <include refid="columns"></include>
+           from riding_user
+           where id=#{id}
+             and deleteFlag='0';
+      </select> 
+       
+       <!--根据账号获取用户信息 -->
+      <select id="getUserByAccount" parameterType="string" resultType="com.kelan.riding.user.entity.User">
+           select <include refid="columns"></include>
+           from riding_user
+           where account=#{account}
+             and deleteFlag='0';
+      </select>
+      
+      <!--根据账号获取角色信息 -->
+      <select id="getRoleByAccount" parameterType="string" resultType="string">
+           select t2.roleVal
+           from riding_user t1 INNER JOIN riding_roles t2 on t1.roleId = t2.id
+           where t1.deleteFlag='0' and t2.deleteFlag='0' and account=#{account};
+      </select>
+      
+      <!--根据手机获取账号信息 -->
+      <select id="gatAccountByPhone" parameterType="string" resultType="string">
+           select account
+           from riding_user
+           where phone=#{phone} and deleteFlag='0';
+      </select>
+      
+      <!--检验手机号账号唯一性 -->
+      <select id="checkUserUnique" parameterType="string" resultType="string">
+           select name
+           from riding_user
+           where account=#{0} or phone=#{1};
+      </select>
+      
+      <!--添加用户信息 -->
+      <insert id="addUser" parameterType="com.kelan.riding.user.entity.User">
+           insert into riding_user(<include refid="columns"></include>) values(
+            #{id},#{name},#{birth},#{sex},#{nickName},#{integral},#{rank},#{qq},#{phone},#{education},#{marriage},
+            #{roleId},#{createUnit},#{provinceCode},#{cityCode},#{areaCode},#{type},#{remark},#{address},#{account},#{password},
+            #{dataInfo},#{keyWord},#{createUserId},#{createDate},#{updateUserId},#{updateDate},#{deleteFlag});
+      </insert>
+      
+      <!--修改用户信息 -->
+	  <update id="updateUser" parameterType="com.kelan.riding.user.entity.User">
+            update riding_user set name=#{name},birth=#{birth},sex=#{sex},
+            qq=#{qq},address=#{address} where account=#{account} and deleteFlag='0';
+      </update>
+      
+      <!--修改用户密码 -->
+	  <update id="updatePassword" parameterType="string">
+            update riding_user set password=#{1} where id=#{0} and deleteFlag='0';
+      </update>
+      
+	  <!--修改用户密码 -->
+	  <update id="forgetPassword" parameterType="string">
+            update riding_user set password=#{1} where phone=#{0} and deleteFlag='0';
+      </update>
+</mapper>

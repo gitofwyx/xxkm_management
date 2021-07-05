@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kelan.riding.route.dao.UserRouteDao">
+	<sql id="column">id,keyWord,routeId,activeId,createUnit,coordinateX,coordinateY,coordinateZ,beginTime,
+		endTime,joinPerson,extent,duration,averageSpeed,presentspeedH,presentspeedL,collectFlag,
+		address,remark,percent,createUserId,createDate,updateUserId,updateDate,deleteFlag
+	</sql>
+
+	<insert id="addRecord" parameterType="com.kelan.riding.route.entity.Record">
+		insert into riding_record(
+		<include refid="column"></include>
+		) values(#{id},#{keyWord},#{routeId},#{activeId},#{createUnit},
+		#{coordinateX},#{coordinateY},#{coordinateZ},#{beginTime},#{endTime},#{joinPerson},#{extent},#{duration},#{averageSpeed},
+		#{presentspeedH},#{presentspeedL},#{collectFlag},#{address},#{remark},#{percent},#{createUserId},#{createDate},#{updateUserId},#{updateDate},#{deleteFlag});
+	</insert>
+
+	<!-- 获取挑战记录 -->
+	<select id="getRecord" resultType="com.kelan.riding.route.entity.Record">
+		select
+		<include refid="column"></include>
+		from riding_record where createUserId=#{0} and routeId=#{1} and
+		deleteFlag='0';
+	</select>
+
+	<update id="updateRecord">
+		update riding_record set
+		duration=#{duration},averageSpeed=#{averageSpeed},endTime=#{endTime}
+		where createUserId=#{0} and routeId=#{routeId} and deleteFlag='0';
+	</update>
+
+	<update id="updateProcessor">
+		update riding_option set praiseFlag=#{praiseFlag},storeFlag=#{storeFlag}
+		where id=#{id} and userId=#{userId} and routeId=#{routeId};
+	</update>
+
+	<insert id="addProcessor" parameterType="com.kelan.riding.route.entity.RouteProcessor">
+		insert into riding_option(id,routeId,userId,praiseFlag,storeFlag)
+		values(#{id},#{routeId},#{userId},#{praiseFlag},#{storeFlag});
+	</insert>
+
+	<select id="getProcessors" parameterType="string"
+		resultType="com.kelan.riding.route.entity.RouteProcessor">
+		select id,routeId,userId,praiseFlag,storeFlag from riding_option where
+		userId=#{userId};
+	</select>
+	
+	<select id="getProcessorPage" resultType="com.kelan.riding.route.entity.RouteProcessor">
+		select id,routeId,userId,praiseFlag,storeFlag from riding_option where
+		userId=#{0} limit #{1},#{2};
+	</select>
+
+	<select id="getProcessor" resultType="com.kelan.riding.route.entity.RouteProcessor">
+		select id,routeId,userId,praiseFlag,storeFlag from riding_option where
+		routeId=#{routeId} and userId=#{userId};
+	</select>
+
+	<delete id="deleteProcessors" parameterType="string">
+		delete from riding_option where routeId=#{0} and userId=#{1};
+	</delete>
+
+	<update id="reomveRecordById" parameterType="string">
+		update riding_record set deleteFlag='1' where id=#{id} and deleteFlag='0';
+	</update>
+</mapper>

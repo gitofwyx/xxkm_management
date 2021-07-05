@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kelan.riding.picture.dao.PicDao">   
+      <sql id="columns">id,picDir,objectId,Flag,createUserId,createDate,updateUserId,updateDate,deleteFlag</sql>
+       
+       <!-- 添加用户头像信息 -->
+      <insert id="addUserPic" parameterType="com.kelan.riding.picture.entity.Picture">
+           insert into riding_user_pic(<include refid="columns"></include>) values(
+           #{id},#{picDir},#{objectId},#{Flag},#{createUserId},#{createDate},#{updateUserId},#{updateDate},#{deleteFlag});
+      </insert>
+      
+      <!-- 获取用户头像信息 -->
+      <select id="getUserPic" parameterType="string" resultType="string">
+           select picDir
+           from riding_user_pic 
+           where objectId=#{id} and deleteFlag='0';
+      </select>
+      
+	  <!-- 修改用户头像路径 -->
+	  <update id="updateUserPic" parameterType="com.kelan.riding.picture.entity.Picture">
+	  		update riding_user_pic 
+	  		set  picDir=#{picDir},updateUserId=#{updateUserId},updateDate=#{updateDate}
+	  		where objectId=#{objectId} and deleteFlag='0';
+	  </update>
+	  
+      <!-- 添加用户故事图片 -->
+      <insert id="addUserStoryPic" parameterType="com.kelan.riding.picture.entity.Picture">
+           insert into riding_story_pic(<include refid="columns"></include>) values(
+           #{id},#{picDir},#{objectId},#{Flag},#{createUserId},#{createDate},#{updateUserId},#{updateDate},#{deleteFlag});
+      </insert>
+       <!-- 获取用户故事图片 -->
+      <select id="listUserStoryPic" parameterType="string" resultType="com.kelan.riding.picture.entity.Picture">
+           select picDir
+           from riding_story_pic
+           where objectId = #{userStoryId}
+             and deleteFlag='0';
+      </select>
+      <!-- 获取用户故事图片 -->
+      <select id="getUserStoryPic" parameterType="string" resultType="com.kelan.riding.picture.entity.Picture">
+           select <include refid="columns"></include>
+           from riding_story_pic
+           where id = #{id}
+             and deleteFlag='0';
+      </select>
+       <!-- 根据线路id获取图片 -->
+      <select id="listRoutePic" parameterType="string" resultType="com.kelan.riding.picture.entity.Picture">
+           select <include refid="columns"></include>
+           from riding_route_pic
+           where objectId = #{routeId}
+             and deleteFlag='0';
+      </select>
+      <!-- 根据用户id获取图片 -->
+      <select id="listRoutePicByUserId" parameterType="string" resultType="com.kelan.riding.picture.entity.Picture">
+           select <include refid="columns"></include>
+           from riding_route_pic
+           where createUserId = #{userId}
+             and deleteFlag='0';
+      </select>
+      <!-- 通过线路id删除线路图 -->
+      <update id="deleteRoutePic"  parameterType="com.kelan.riding.picture.entity.Picture">
+     	update riding_route_pic 
+	  		set  deleteFlag=1
+	  		where objectId=#{objectId};
+      </update>
+      <!-- 添加线路图 -->
+      <insert id="addRoutePic" parameterType="com.kelan.riding.picture.entity.Picture">
+           insert into riding_route_pic(<include refid="columns"></include>) values(
+           #{id},#{picDir},#{objectId},#{Flag},#{createUserId},#{createDate},#{updateUserId},#{updateDate},#{deleteFlag});
+      </insert>
+</mapper>

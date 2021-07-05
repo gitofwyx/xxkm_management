@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kelan.riding.route.dao.RankingDao">
+	<sql id="columns">id,keyWord,routeId,activeId,createUnit,beginTime,joinPerson,duration,averageSpeed,presentspeedH,presentspeedL,picId,
+		address,remark,createUserId,createDate,updateUserId,updateDate,deleteFlag,percent
+	</sql>
+
+	<select id="listRankByRouteId" resultType="com.kelan.riding.route.entity.Ranking"
+		parameterType="string">
+		select
+		<include refid="columns"></include>
+		from (SELECT * FROM riding_route_ranking where deleteFlag='0' and
+		routeId=#{0} and percent='100%' ORDER BY duration DESC) t limit 10;
+	</select>
+
+	<insert id="addRank" parameterType="com.kelan.riding.route.entity.Ranking">
+		insert into riding_route_ranking(
+		<include refid="columns"></include>
+		) values(
+		#{id},#{keyWord},#{routeId},#{activeId},#{createUnit},#{beginTime},#{joinPerson},
+		#{duration},#{averageSpeed},#{presentspeedH},#{presentspeedL},#{picId},#{address},
+		#{remark},#{createUserId},#{createDate},#{updateUserId},#{updateDate},#{deleteFlag},#{percent});
+	</insert>
+
+	<select id="getRankTop" resultType="com.kelan.riding.route.entity.Ranking">
+		select
+		<include refid="columns"></include>
+		from (select * from riding_route_ranking where deleteFlag='0' and
+		routeId=#{0} and percent='100%' order by duration desc)t limit 1;
+	</select>
+	
+	<select id="RankByCreateUser" resultType="com.kelan.riding.route.entity.Ranking">
+		select
+		<include refid="columns"></include>
+		from riding_route_ranking where deleteFlag='0' and
+		createUserId=#{0} and routeId=#{1} and percent='100%';
+	</select>
+</mapper>

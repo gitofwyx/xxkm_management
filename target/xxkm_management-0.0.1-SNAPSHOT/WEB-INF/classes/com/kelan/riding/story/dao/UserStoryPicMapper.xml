@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kelan.riding.story.dao.UserStoryPicDao">   
+      <sql id="columns">id,picDir,objectId,createUserId,createDate,updateUserId,updateDate,deleteFlag</sql>
+       
+      <!-- 添加用户故事图片 -->
+      <insert id="addUserStoryPic" parameterType="com.kelan.riding.story.entity.UserStoryPic">
+           insert into riding_story_pic(<include refid="columns"></include>) values(
+           #{id},#{picDir},#{objectId},#{createUserId},#{createDate},#{updateUserId},#{updateDate},#{deleteFlag});
+      </insert>
+      
+      <!-- 获取用户故事图片 -->
+      <select id="listUserStoryPic" parameterType="string" resultType="com.kelan.riding.story.entity.UserStoryPic">
+           select picDir
+           from riding_story_pic
+           where objectId = #{userStoryId}
+             and deleteFlag='0';
+      </select>
+      <!-- 获取用户故事图片 -->
+      <select id="getUserStoryPic" parameterType="string" resultType="com.kelan.riding.story.entity.UserStoryPic">
+           select <include refid="columns"></include>
+           from riding_story_pic
+           where id = #{id}
+             and deleteFlag='0';
+      </select>
+</mapper>
