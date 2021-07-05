@@ -48,7 +48,7 @@
         #{createUserId},#{createDate},#{updateUserId},#{updateDate},#{deleteFlag});
     </insert>
 
-    <select id="getDeviceClassById" parameterType="string" resultType="com.xxk.management.device.entity.DeviceClass">
+    <select id="getDeviceClassById" parameterType="string" resultType="com.xxkm.management.device.entity.DeviceClass">
         select
         <include refid="columns"></include>
         from xxk_dev_class where id=#{0} and deleteFlag='0';

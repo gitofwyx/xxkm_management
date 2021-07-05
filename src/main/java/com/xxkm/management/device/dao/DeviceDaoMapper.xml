@@ -72,13 +72,13 @@
         from xxk_device where deleteFlag='0';
     </select>
 
-    <select id="getDeviceByIdent" parameterType="string" resultType="com.xxk.management.device.entity.Device">
+    <select id="getDeviceByIdent" parameterType="string" resultType="com.xxkm.management.device.entity.Device">
         select
         <include refid="columns"></include>
         from xxk_device where dev_ident=#{0} and deleteFlag='0';
     </select>
 
-    <select id="getDeviceById" parameterType="string" resultType="com.xxk.management.device.entity.Device">
+    <select id="getDeviceById" parameterType="string" resultType="com.xxkm.management.device.entity.Device">
         select
         <include refid="columns"></include>
         from xxk_device where id=#{0} and deleteFlag='0';
