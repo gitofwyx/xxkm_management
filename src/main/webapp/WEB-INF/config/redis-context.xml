@@ -51,6 +51,6 @@
         <constructor-arg index="5" value="0"/>
     </bean> -->
 
-	<!-- <bean id="RedisService" class="com.kelan.riding.web.service.RedisService">
+	<!-- <bean id="RedisService" class="com.xxk.xxkm_management.web.service.RedisService">
 	</bean> -->
 </beans>
