@@ -5,10 +5,9 @@ import java.util.Random;
 import java.util.Stack;
 
 /**
- *Title: 数值精确运算
- * 
- *Description: 提供精确的加减乘除运算
- * 
+ * Title: 数值精确运算
+ * <p/>
+ * Description: 提供精确的加减乘除运算
  */
 public class NumberUtil {
 
@@ -29,9 +28,7 @@ public class NumberUtil {
     /**
      * 提供精确的加法运算。
      *
-     *
      * @param v1 被加数
-     *
      * @param v2 加数
      * @return 两个参数的和
      */
@@ -44,9 +41,7 @@ public class NumberUtil {
     /**
      * 提供精确的加法运算。
      *
-     *
      * @param v1 被加数
-     *
      * @param v2 加数
      * @return 两个参数的和
      */
@@ -63,9 +58,7 @@ public class NumberUtil {
     /**
      * 提供精确的减法运算。
      *
-     *
      * @param v1 被加数
-     *
      * @param v2 加数
      * @return 两个参数的差
      */
@@ -78,9 +71,7 @@ public class NumberUtil {
     /**
      * 提供精确的减法运算。
      *
-     *
      * @param v1 被加数
-     *
      * @param v2 加数
      * @return 两个参数的差
      */
@@ -97,9 +88,7 @@ public class NumberUtil {
     /**
      * 提供精确的乘法运算。
      *
-     *
      * @param v1 被加数
-     *
      * @param v2 加数
      * @return 两个参数的乘
      */
@@ -108,17 +97,18 @@ public class NumberUtil {
         BigDecimal b2 = new BigDecimal(Double.toString(v2));
         return b1.multiply(b2).doubleValue();
     }
-    
+
     /**
      * 提供精确的乘法运算并四舍五入保留小数点后N位
+     *
      * @param v1
      * @param v2
      * @param scale
      * @return
      */
     public static double mul(double v1, double v2, int scale) {
-    	if (scale < 0) {
-    		scale = 2;
+        if (scale < 0) {
+            scale = 2;
         }
         BigDecimal b1 = new BigDecimal(Double.toString(v1));
         BigDecimal b2 = new BigDecimal(Double.toString(v2));
@@ -128,9 +118,7 @@ public class NumberUtil {
     /**
      * 提供精确的乘法运算。
      *
-     *
      * @param v1 被加数
-     *
      * @param v2 加数
      * @return 两个参数的乘
      */
@@ -147,9 +135,7 @@ public class NumberUtil {
     /**
      * add by tbb 提供精确的乘法运算。
      *
-     *
      * @param v1 被乘数
-     *
      * @param v2 乘数
      * @return 两个参数的乘
      */
@@ -166,9 +152,7 @@ public class NumberUtil {
     /**
      * 提供（相对）精确的除法运算，当发生除不尽的情况时，精确到 小数点以后10位，以后的数字四舍五入。
      *
-     *
      * @param v1 被除数
-     *
      * @param v2 除数
      * @return 两个参数的商
      */
@@ -179,9 +163,7 @@ public class NumberUtil {
     /**
      * 提供（相对）精确的除法运算，当发生除不尽的情况时，精确到 小数点以后10位，以后的数字四舍五入。
      *
-     *
      * @param v1 被除数
-     *
      * @param v2 除数
      * @return 两个参数的商
      */
@@ -192,9 +174,7 @@ public class NumberUtil {
     /**
      * Add by tbb 提供（相对）精确的除法运算，当发生除不尽的情况时，精确到 小数点以后10位，以后的数字四舍五入。
      *
-     *
      * @param v1 被除数
-     *
      * @param v2 除数
      * @return 两个参数的商
      */
@@ -205,12 +185,9 @@ public class NumberUtil {
     /**
      * 提供（相对）精确的除法运算。当发生除不尽的情况时，由scale参数指 定精度，以后的数字四舍五入。
      *
-     *
-     * @param v1 被除数
-     *
-     * @param v2 除数
+     * @param v1    被除数
+     * @param v2    除数
      * @param scale 表示表示需要精确到小数点以后几位。
-     *
      * @return 两个参数的商
      */
     public static BigDecimal div(String v1, String v2, int scale) {
@@ -231,12 +208,9 @@ public class NumberUtil {
     /**
      * add by tbb 提供（相对）精确的除法运算。当发生除不尽的情况时，由scale参数指 定精度，以后的数字四舍五入。
      *
-     *
-     * @param v1 被除数
-     *
-     * @param v2 除数
+     * @param v1    被除数
+     * @param v2    除数
      * @param scale 表示需要精确到小数点以后几位。
-     *
      * @return 两个参数的商
      */
     public static BigDecimal div(String v1, int v2, int scale) {
@@ -257,12 +231,9 @@ public class NumberUtil {
     /**
      * 提供（相对）精确的除法运算。当发生除不尽的情况时，由scale参数指 定精度，以后的数字四舍五入。
      *
-     *
-     * @param v1 被除数
-     *
-     * @param v2 除数
+     * @param v1    被除数
+     * @param v2    除数
      * @param scale 表示表示需要精确到小数点以后几位。
-     *
      * @return 两个参数的商
      */
     public static double div(double v1, double v2, int scale) {
@@ -278,8 +249,7 @@ public class NumberUtil {
     /**
      * 提供精确的小数位四舍五入处理。
      *
-     *
-     * @param v 需要四舍五入的数字
+     * @param v     需要四舍五入的数字
      * @param scale 小数点后保留几位
      * @return 四舍五入后的结果
      */
@@ -296,15 +266,14 @@ public class NumberUtil {
     /**
      * 提供精确的小数位四舍五入处理。
      *
-     *
-     * @param v 需要四舍五入的数字
+     * @param v     需要四舍五入的数字
      * @param scale 小数点后保留几位
      * @return 四舍五入后的结果
      */
     public static BigDecimal round(String v, int scale) {
-    	if (v == null || v.isEmpty()) {
-    		return new BigDecimal("0");
-    	}
+        if (v == null || v.isEmpty()) {
+            return new BigDecimal("0");
+        }
         if (scale < 0) {
             throw new IllegalArgumentException(
                     "The scale must be a positive integer or zero");
@@ -318,7 +287,6 @@ public class NumberUtil {
      * null转变为空字串
      *
      * @param strValue 字串值
-     *
      * @return 字串
      */
     public static String toString(String strValue) {
@@ -333,9 +301,7 @@ public class NumberUtil {
      * 字符转换成double
      *
      * @param str 字符串值
-     *
      * @return double值
-     *
      */
     public static double strToDouble(String str) {
 //        String loghead = new String("TypeConver:str2float:");
@@ -358,9 +324,7 @@ public class NumberUtil {
      * 字符转换成Long
      *
      * @param str 字符串值
-     *
      * @return long值
-     *
      */
     public static long strToLong(String str) {
 //        String loghead = new String("TypeConver:str2float:");
@@ -383,9 +347,7 @@ public class NumberUtil {
      * 字符转换成Int
      *
      * @param str 字符串值
-     *
      * @return Int值
-     *
      */
     public static int strToInt(String str) {
         int ret = 0;
@@ -407,9 +369,7 @@ public class NumberUtil {
      * 字符转换成Int
      *
      * @param str 字符串值
-     *
      * @return Int值
-     *
      */
     public static float strToFloat(String str) {
 //        String loghead = new String("TypeConver:str2float:");
@@ -431,11 +391,8 @@ public class NumberUtil {
     /**
      * 字串型转换成BigDecimal 型
      *
-     *
      * @param str str的值
-     *
      * @return BigDecimal 型
-     *
      */
     public static BigDecimal strToBigDecimal(String str) {
         try {
@@ -449,7 +406,6 @@ public class NumberUtil {
     /**
      * BigDecimal转换成字符串型
      *
-     *
      * @param bdNum BigDecimal
      * @return 字串类型
      */
@@ -460,11 +416,9 @@ public class NumberUtil {
     /**
      * 格式化double值,
      *
-     * @param dblValue double值
-     *
+     * @param dblValue  double值
      * @param strFormat 格式串("00000.000")
      * @return 返回格式串
-     *
      */
     public static String format(double dblValue, String strFormat) {
         java.text.DecimalFormat df = new java.text.DecimalFormat(strFormat);
@@ -475,11 +429,8 @@ public class NumberUtil {
     /**
      * 格式化String值,
      *
-     * @param dblValue double值
-     *
      * @param strFormat 格式串("00000.000")
      * @return 返回格式串
-     *
      */
     public static String format(String strValue, String strFormat) {
         java.text.DecimalFormat df = new java.text.DecimalFormat(strFormat);
@@ -493,10 +444,8 @@ public class NumberUtil {
     /**
      * 判断是否为数字
      *
-     *
      * @param strValue 字串
      * @return 真或假
-     *
      */
     public static boolean isNumeric(String strValue) {
         boolean bRet = false;
@@ -512,10 +461,8 @@ public class NumberUtil {
     /**
      * 得到最精确的小数位数
      *
-     *
      * @param strValue 字串
-     * @param isMoney 是否金额型
-     *
+     * @param isMoney  是否金额型
      * @return 精算后的字串
      */
     public static String toFinish(String strValue, boolean isMoney) {
@@ -571,7 +518,6 @@ public class NumberUtil {
      * 判断是否为操作符
      *
      * @param operator 操作符
-     *
      * @return true为真 ,false为假
      */
     private static boolean isOperator(char operator) {
@@ -611,7 +557,6 @@ public class NumberUtil {
      * 检查表达式是否正确
      *
      * @param strExpression 表达式
-     *
      * @return true为真 ,false为假
      */
     private static boolean checkExpression(String strExpression) {
@@ -647,14 +592,13 @@ public class NumberUtil {
     /**
      * 处理计算
      *
-     * @param operator 操作符
-     *
+     * @param operator   操作符
      * @param sOpertand1 操作数1
      * @param sOpertand2 操作数2
      * @return
      */
     private static String toResult(char operator, String sOpertand1,
-            String sOpertand2) {
+                                   String sOpertand2) {
         String strValue = new String("");
         switch (operator) {
             case '-':
@@ -672,7 +616,7 @@ public class NumberUtil {
                 break;
             case '%': // 求余操作
                 double dblOpertand1,
-                 dblOpertand2;
+                        dblOpertand2;
                 dblOpertand1 = strToDouble(sOpertand1);
                 dblOpertand2 = strToDouble(sOpertand2);
                 if (dblOpertand2 == 0.0) {
@@ -692,9 +636,7 @@ public class NumberUtil {
      * 找到最匹配的括号的:因为括号可以无限制的嵌套
      *
      * @param strExpression 表达式
-     *
      * @return 右边括号的光标位置
-     *
      */
     private static int findRightPos(String strExpression) {
         int rightCount = 0;
@@ -719,7 +661,6 @@ public class NumberUtil {
      *
      * @param strExpression 字符串表达式
      * @return 计算出来的结果
-     *
      */
     @SuppressWarnings({"unchecked", "rawtypes"})
     private static String procSum(String strExpression) {
@@ -801,7 +742,7 @@ public class NumberUtil {
                     // 处理非法字符
                     if (strExpression.charAt(pos) != ')'
                             && (!strExpression.substring(pos, pos + 1).equals(
-                                    " "))) {
+                            " "))) {
                         strValue += strExpression.substring(pos, pos + 1);
                     }
                 }
@@ -829,11 +770,8 @@ public class NumberUtil {
     /**
      * 先检查是否正确,如果不正确将抛异常
      *
-     *
      * @param strExpression 表达式
-     *
      * @return 处理的结果
-     *
      */
     public static String sum(String strExpression) {
         if (checkExpression(strExpression)) {
@@ -862,22 +800,23 @@ public class NumberUtil {
         }
         return String.valueOf(result);
     }
-    
+
     /**
      * 校验浮点数的合法性
-     * @param strValue 待校验字符串数字、浮点数
+     *
+     * @param strValue   待校验字符串数字、浮点数
      * @param isRequired 是否可以为空。true：不可以为空， false：可以为空
      * @return
      */
     public static boolean isFloatNumber(String strValue, boolean isRequired) {
         if (strValue == null || strValue.isEmpty()) {
-    		if (isRequired) {
-    			return false;
-    		} else {
-    			return true;
-    		}
-    	}
-        
+            if (isRequired) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
         boolean bRet = false;
         try {
             Double.parseDouble(strValue);
@@ -887,22 +826,23 @@ public class NumberUtil {
         }
         return bRet;
     }
-    
+
     /**
      * 校验整数的合法性
-     * @param strValue 待校验字符串整数
+     *
+     * @param strValue   待校验字符串整数
      * @param isRequired 是否可以为空。true：不可以为空， false：可以为空
      * @return
      */
     public static boolean isInt(String strValue, boolean isRequired) {
         if (strValue == null || strValue.isEmpty()) {
-    		if (isRequired) {
-    			return false;
-    		} else {
-    			return true;
-    		}
-    	}
-        
+            if (isRequired) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
         boolean bRet = false;
         try {
             Integer.parseInt(strValue);
@@ -912,22 +852,23 @@ public class NumberUtil {
         }
         return bRet;
     }
-    
+
     /**
      * 校验长整形数的合法性
-     * @param strValue 待校验字符串整数
+     *
+     * @param strValue   待校验字符串整数
      * @param isRequired 是否可以为空。true：不可以为空， false：可以为空
      * @return
      */
     public static boolean isLong(String strValue, boolean isRequired) {
         if (strValue == null || strValue.isEmpty()) {
-    		if (isRequired) {
-    			return false;
-    		} else {
-    			return true;
-    		}
-    	}
-        
+            if (isRequired) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
         boolean bRet = false;
         try {
             Long.parseLong(strValue);
@@ -937,5 +878,36 @@ public class NumberUtil {
         }
         return bRet;
     }
-    
+
+    public static int sizeOfInt(int x) {
+        int[] sizeTable = {9, 99, 999, 9999, 99999, 999999, 9999999,
+                99999999, 999999999, Integer.MAX_VALUE};
+        for (int i = 0; ; i++)
+            if (x <= sizeTable[i])
+                return i + 1;
+    }
+
+    public static int sizeNumOfInt(int num) {
+        int count = 0;
+        if (num < 0 || num > 999999999) {
+            return 0;
+        } else if (num == 0) {
+            return 1;
+        } else {
+            while (num > 0) {
+                num = num / 10;
+                count++;
+            }
+            return count;
+        }
+    }
+
+    public static int getNumBySize(int size) {
+        int num=1;
+        for(int i=0;i<size;i++){
+            num=num*10;
+        }
+        return num;
+    }
+
 }
