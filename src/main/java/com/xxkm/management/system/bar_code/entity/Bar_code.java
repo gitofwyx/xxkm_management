@@ -8,17 +8,16 @@ import com.xxkm.core.entity.BaseInfoEntity;
 
 public class Bar_code extends BaseInfoEntity {
     private String id;
-    private String dev_class_id;     //设备种类
-    private String dev_name;      //设备名
-    private String dev_ident;      //设备编号
-    private String dev_type;    //设备型号
-    private int dev_type_ident;    //型号编号
-    private String genre_tags;      //类型标识
-    private String single_unit;     //个体单位
-    private String dev_flag;         //设备状态 -> 1:停用；0：正常
-    private String isStock;        //是否库存标记
-    private String stock_office;  //库存科室标记
-    private String remark;         //备注
+    private String stock_id;     //库存ID
+    private String stock_entity_id;      //库存设备ID
+    private String offices_entity_id;      //库存设备ID
+    private String bar_code_ident;      //条形码编号
+    private String bar_code_type;    //条形码种类
+    private int bar_code_genre;    //条形码类别
+    private String bar_code_by;      //确认人
+    private String bar_code_officeId;     //条形码科室ID
+    private String bar_code_date;         //添加时间
+    private String bar_code_status;        //条形码状态
     private String keyWord;
 
     @Override
@@ -31,92 +30,84 @@ public class Bar_code extends BaseInfoEntity {
         this.id = id;
     }
 
-    public String getDev_class_id() {
-        return dev_class_id;
+    public String getStock_id() {
+        return stock_id;
     }
 
-    public void setDev_class_id(String dev_class_id) {
-        this.dev_class_id = dev_class_id;
+    public void setStock_id(String stock_id) {
+        this.stock_id = stock_id;
     }
 
-    public String getDev_name() {
-        return dev_name;
+    public String getStock_entity_id() {
+        return stock_entity_id;
     }
 
-    public void setDev_name(String dev_name) {
-        this.dev_name = dev_name;
+    public void setStock_entity_id(String stock_entity_id) {
+        this.stock_entity_id = stock_entity_id;
     }
 
-    public String getDev_ident() {
-        return dev_ident;
+    public String getOffices_entity_id() {
+        return offices_entity_id;
     }
 
-    public void setDev_ident(String dev_ident) {
-        this.dev_ident = dev_ident;
+    public void setOffices_entity_id(String offices_entity_id) {
+        this.offices_entity_id = offices_entity_id;
     }
 
-    public String getDev_type() {
-        return dev_type;
+    public String getBar_code_ident() {
+        return bar_code_ident;
     }
 
-    public void setDev_type(String dev_type) {
-        this.dev_type = dev_type;
+    public void setBar_code_ident(String bar_code_ident) {
+        this.bar_code_ident = bar_code_ident;
     }
 
-    public int getDev_type_ident() {
-        return dev_type_ident;
+    public String getBar_code_type() {
+        return bar_code_type;
     }
 
-    public void setDev_type_ident(int dev_type_ident) {
-        this.dev_type_ident = dev_type_ident;
+    public void setBar_code_type(String bar_code_type) {
+        this.bar_code_type = bar_code_type;
     }
 
-    public String getGenre_tags() {
-        return genre_tags;
+    public int getBar_code_genre() {
+        return bar_code_genre;
     }
 
-    public void setGenre_tags(String genre_tags) {
-        this.genre_tags = genre_tags;
+    public void setBar_code_genre(int bar_code_genre) {
+        this.bar_code_genre = bar_code_genre;
     }
 
-    public String getSingle_unit() {
-        return single_unit;
+    public String getBar_code_by() {
+        return bar_code_by;
     }
 
-    public void setSingle_unit(String single_unit) {
-        this.single_unit = single_unit;
+    public void setBar_code_by(String bar_code_by) {
+        this.bar_code_by = bar_code_by;
     }
 
-    public String getDev_flag() {
-        return dev_flag;
+    public String getBar_code_officeId() {
+        return bar_code_officeId;
     }
 
-    public void setDev_flag(String dev_flag) {
-        this.dev_flag = dev_flag;
+    public void setBar_code_officeId(String bar_code_officeId) {
+        this.bar_code_officeId = bar_code_officeId;
     }
 
-    public String getIsStock() {
-        return isStock;
+    public String getBar_code_date() {
+        return bar_code_date;
     }
 
-    public void setIsStock(String isStock) {
-        this.isStock = isStock;
+    public void setBar_code_date(String bar_code_date) {
+        this.bar_code_date = bar_code_date;
     }
 
-    public String getStock_office() {
-        return stock_office;
+    public String getBar_code_status() {
+        return bar_code_status;
     }
 
-    public void setStock_office(String stock_office) {
-        this.stock_office = stock_office;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark;
+    public void setBar_code_status(String bar_code_status) {
+        this.bar_code_status = bar_code_status;
     }
 
     public String getKeyWord() {
