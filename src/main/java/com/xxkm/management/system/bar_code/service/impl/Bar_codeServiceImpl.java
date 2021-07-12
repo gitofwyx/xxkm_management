@@ -1,9 +1,9 @@
 package com.xxkm.management.system.bar_code.service.impl;
 
 import com.xxkm.management.stock.entity.Stock;
-import com.xxkm.management.system.bar_code.dao.DeviceDao;
+import com.xxkm.management.system.bar_code.dao.Bar_codeDao;
 import com.xxkm.management.system.bar_code.entity.Bar_code;
-import com.xxkm.management.system.bar_code.service.DeviceService;
+import com.xxkm.management.system.bar_code.service.Bar_codeService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,12 +15,12 @@ import java.util.Map;
  * Created by Administrator on 2017/3/15.
  */
 @Service
-public class DeviceServiceImpl implements DeviceService {
+public class Bar_codeServiceImpl implements Bar_codeService {
 
-    private static Logger log = Logger.getLogger(DeviceServiceImpl.class);
+    private static Logger log = Logger.getLogger(Bar_codeServiceImpl.class);
 
     @Autowired
-    private DeviceDao dao;
+    private Bar_codeDao dao;
 
 
     @Override
@@ -74,18 +74,7 @@ public class DeviceServiceImpl implements DeviceService {
 
     @Override
     public Stock makeStockByDevice(Stock stock) {
-        if ("".equals(stock.getEntity_id()) || stock.getEntity_id() == null) {
-            return null;
-        }
-        Bar_code device=dao.getDeviceById(stock.getEntity_id());
-        if (device != null) {
-            stock.setStock_ident(device.getDev_ident());
-            stock.setClass_id(device.getDev_class_id());
-            stock.setEntity_id(device.getId());
-            stock.setCreateUserId(stock.getUpdateUserId());
-            stock.setUpdateUserId(stock.getUpdateUserId());
-        }
-        return stock;
+        return null;
     }
 
 }

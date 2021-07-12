@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xxkm.management.system.bar_code.dao.Bar_codeDao">
+    <sql id="columns">id,stock_id,stock_entity_id,offices_entity_id,bar_code_ident,bar_code_type,bar_code_genre,
+          bar_code_by,bar_code_officeId,bar_code_date,bar_code_status,keyWord,createUserId,createDate,updateUserId,
+          updateDate,deleteFlag</sql>
+
+    <resultMap id="deviceNumberMap" type="java.util.HashMap">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="dev_ident" property="dev_ident" jdbcType="VARCHAR"/>
+        <result column="dev_no" property="dev_no" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--获取分页 -->
+    <select id="listBar_code" resultType="com.xxkm.management.system.bar_code.entity.Bar_code">
+        select
+        <include refid="columns"></include>
+        from xxk_device where deleteFlag='0' ORDER BY createDate desc limit #{0},#{1};
+    </select>
+
+    <!--获取记录数 -->
+    <select id="countBar_code" resultType="java.lang.Integer">
+        select count(id) from xxk_device;
+    </select>
+
+    <!--根据设备id列表获取设备列表 -->
+    <select id="listBar_codeById" resultType="com.xxkm.management.system.bar_code.entity.Bar_code" parameterType="java.util.List">
+        select
+        <include refid="columns"></include>
+        from xxk_device
+        where id in
+        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        and deleteFlag='0';
+    </select>
+
+    <!--添加用户信息 -->
+    <insert id="addBar_code" parameterType="com.xxkm.management.system.bar_code.entity.Bar_code">
+        insert into xxk_bar_code(<include refid="columns"></include>) values(
+        #{id},#{stock_id},#{stock_entity_id},#{offices_entity_id},#{bar_code_ident},#{bar_code_type},
+        #{bar_code_genre},#{bar_code_by},#{bar_code_officeId},#{bar_code_date},#{bar_code_status},#{keyWord},
+        #{createUserId},#{createDate},#{updateUserId},#{updateDate},#{deleteFlag});
+    </insert>
+
+    <select id="getDeviceByIdent" parameterType="string" resultType="com.xxkm.management.system.bar_code.entity.Bar_code">
+        select
+        <include refid="columns"></include>
+        from xxk_device where dev_ident=#{0} and deleteFlag='0';
+    </select>
+
+    <!--批量修改（批量逻辑删除） -->
+    <!--以下的批量方法只能删除数据表的一样数据-->
+    <update id="deleteListRegUser" parameterType="java.util.List">
+        UPDATE xxk_reg_user SET deleteFlag ='1' WHERE id IN
+        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+
+</mapper>

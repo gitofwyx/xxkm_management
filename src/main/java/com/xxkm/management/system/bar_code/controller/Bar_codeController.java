@@ -1,21 +1,15 @@
 package com.xxkm.management.system.bar_code.controller;
 
 import com.xxkm.core.file.BaseController;
-import com.xxkm.core.util.DateUtil;
-import com.xxkm.core.util.UUIdUtil;
-import com.xxkm.core.util.build_ident.IdentUtil;
 import com.xxkm.management.system.bar_code.entity.Bar_code;
-import com.xxkm.management.system.bar_code.service.DeviceService;
+import com.xxkm.management.system.bar_code.service.Bar_codeService;
 import org.apache.log4j.Logger;
-import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +24,7 @@ public class Bar_codeController extends BaseController {
     private static Logger log = Logger.getLogger(Bar_codeController.class);
 
     @Autowired
-    private DeviceService deviceService;
+    private Bar_codeService deviceService;
     
     @ResponseBody
     @RequestMapping("/listDevice")

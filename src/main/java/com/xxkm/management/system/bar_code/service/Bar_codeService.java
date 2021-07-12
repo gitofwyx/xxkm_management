@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * Created by Administrator on 2017/3/15.
  */
-public interface DeviceService {
+public interface Bar_codeService {
 
     public List<Bar_code> listDevice(int pageStart, int pageSize);
 

@@ -10,7 +10,7 @@ import java.util.Map;
  * Created by Administrator on 2017/3/15.
  */
 @Repository
-public interface DeviceDao {
+public interface Bar_codeDao {
 
     public List<Bar_code> listDevice(int pageStart, int pageSize);
 
