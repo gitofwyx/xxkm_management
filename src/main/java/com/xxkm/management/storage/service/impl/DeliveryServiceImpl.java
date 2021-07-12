@@ -156,4 +156,9 @@ public class DeliveryServiceImpl implements DeliveryService {
     public boolean updateDeliveryStatus(String id) {
         return dao.updateDeliveryStatus(id) == 1 ? true : false;
     }
+
+    @Override
+    public Map<String, Object> deliveryReport(Map<String, Object> resultMap) {
+        return null;
+    }
 }

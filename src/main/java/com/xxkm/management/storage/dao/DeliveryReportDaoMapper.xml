@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xxkm.management.storage.dao.DeliveryReportDao">
+    <sql id="columns">id,class_id,entity_id,entity_name,entity_type,stock_id,stock_entity_id,out_confirmed_ident,out_confirmed_type,out_confirmed_genre,out_confirmed_by,
+out_confirmed_officeId,out_confirmed_date,out_confirmed_no,out_confirmed_no_2,out_confirmed_unit,out_confirmed_proportion,out_confirmed_total,out_confirmed_total_unit,
+entity_entry_status,keyWord,createUserId,createDate,updateUserId,updateDate,deleteFlag</sql>
+
+    <!--获取-->
+    <select id="getDeliveryReportSingleParam" parameterType="string" resultType="com.xxkm.management.storage.entity.Delivery">
+        select
+        <include refid="columns"></include>
+        from xxk_delivery where deleteFlag='0'
+        cratedate BETWEEN
+        TO_DAYS(#{0}) and TO_DAYS(#{1}) ORDER BY createDate;
+    </select>
+
+
+</mapper>

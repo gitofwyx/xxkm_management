@@ -27,4 +27,6 @@ public interface DeliveryService {
 
     public boolean updateDeliveryStatus(String id);
 
+    public Map<String, Object> deliveryReport(Map<String, Object> resultMap);
+
 }
