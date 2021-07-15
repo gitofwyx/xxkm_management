@@ -27,8 +27,8 @@ public class Bar_codeController extends BaseController {
     private Bar_codeService deviceService;
     
     @ResponseBody
-    @RequestMapping("/listDevice")
-    public Map<String, Object> listDevice(@RequestParam(value = "pageIndex") String pageIndex,
+    @RequestMapping("/bar_code")
+    public Map<String, Object> listBar_code(@RequestParam(value = "pageIndex") String pageIndex,
                                           @RequestParam(value = "limit") String limit,
                                           @RequestParam(value = "dev_name") String dev_name,
                                           @RequestParam(value = "dev_type") String dev_type,

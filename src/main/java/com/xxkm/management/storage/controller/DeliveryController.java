@@ -76,33 +76,24 @@ public class DeliveryController extends BaseController {
 
     @ResponseBody
     @RequestMapping("/deliveryReport")
-    public Map<String, Object> deliveryReport(
-                                            @RequestParam(value = "account") String account,
-                                            @RequestParam(value = "out_confirmed_date") String out_confirmed_date) {
-        Map<String, Object> result = new HashMap<>();
-        List<Map<String, Object>> resultList = new ArrayList<>();
-        List<String> userIdList = new ArrayList<>();
-        List<Map<String, Object>> userMapList = new ArrayList<>();
+    public Map<String, Object> deliveryReport() {
+        Map<String, Object> resultMap = new HashMap<>();
+
         try {
-
-            List<Delivery> listDelivery = deliveryService.listDelivery(pageNumber, pageSize);
-            if (listDelivery == null) {
+            String startDate="2021-07-13 15:20:08";
+            String endDate="2021-07-14 15:21:29";
+            resultMap = deliveryService.deliveryReport(startDate,endDate);
+            if (resultMap == null) {
                 log.error("listDelivery:获取分页出错");
-                result.put("error", false);
-                return result;
-            } else {
-
+                return resultMap;
             }
-            result.put("rows", resultList);
-            result.put("results", deliveryService.countDelivery());
-            result.put("userMapList", userMapList);
 
         } catch (Exception e) {
             log.error(e);
-            result.put("hasError", true);
-            result.put("error", "查询出错");
+            resultMap.put("hasError", true);
+            resultMap.put("error", "查询出错");
         }
-        return result;
+        return resultMap;
     }
 
     @ResponseBody

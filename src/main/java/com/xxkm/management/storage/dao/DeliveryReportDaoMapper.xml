@@ -5,13 +5,51 @@
 out_confirmed_officeId,out_confirmed_date,out_confirmed_no,out_confirmed_no_2,out_confirmed_unit,out_confirmed_proportion,out_confirmed_total,out_confirmed_total_unit,
 entity_entry_status,keyWord,createUserId,createDate,updateUserId,updateDate,deleteFlag</sql>
 
+    <sql id="Report_columns">
+      xd.id AS id,
+      xd.class_id AS class_id,
+      xd.entity_id AS entity_id,
+      xd.entity_name AS entity_name,
+      xd.entity_type AS entity_type,
+      xd.out_confirmed_ident AS out_confirmed_ident,
+      xd.out_confirmed_type AS out_confirmed_type,
+      xd.out_confirmed_by AS out_confirmed_by,
+      xu.name AS out_confirmed_name,
+      xd.out_confirmed_officeId AS out_confirmed_officeId,
+      xo.office_name AS office_name,
+      xd.createDate AS createDate,
+      xd.out_confirmed_total AS out_confirmed_total,
+      xd.out_confirmed_total_unit AS out_confirmed_total_unit,
+      xd.entity_entry_status AS entity_entry_status
+      </sql>
+
+    <resultMap id="DeliveryReportMap" type="java.util.HashMap">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="class_id" property="class_id" jdbcType="VARCHAR"/>
+        <result column="entity_id" property="entity_id" jdbcType="VARCHAR"/>
+        <result column="entity_name" property="entity_name" jdbcType="VARCHAR"/>
+        <result column="entity_type" property="entity_type" jdbcType="VARCHAR"/>
+        <result column="out_confirmed_ident" property="out_confirmed_ident" jdbcType="VARCHAR"/>
+        <result column="out_confirmed_type" property="out_confirmed_type" jdbcType="VARCHAR"/>
+        <result column="out_confirmed_by" property="out_confirmed_by" jdbcType="VARCHAR"/>
+        <result column="out_confirmed_name" property="out_confirmed_name" jdbcType="VARCHAR"/>
+        <result column="out_confirmed_officeId" property="out_confirmed_officeId" jdbcType="VARCHAR"/>
+        <result column="office_name" property="office_name" jdbcType="VARCHAR"/>
+        <result column="createDate" property="createDate" jdbcType="VARCHAR"/>
+        <result column="out_confirmed_total" property="out_confirmed_total" jdbcType="VARCHAR"/>
+        <result column="out_confirmed_total_unit" property="out_confirmed_total_unit" jdbcType="VARCHAR"/>
+        <result column="entity_entry_status" property="entity_entry_status" jdbcType="VARCHAR"/>
+    </resultMap>
+
     <!--获取-->
-    <select id="getDeliveryReportSingleParam" parameterType="string" resultType="com.xxkm.management.storage.entity.Delivery">
+    <select id="getDeliveryReportSingleParam" resultMap="DeliveryReportMap">
         select
-        <include refid="columns"></include>
-        from xxk_delivery where deleteFlag='0'
-        cratedate BETWEEN
-        TO_DAYS(#{0}) and TO_DAYS(#{1}) ORDER BY createDate;
+        <include refid="Report_columns"></include>
+        from xxk_delivery xd LEFT JOIN xxk_offices xo ON xd.out_confirmed_officeId=xo.id
+        LEFT JOIN xxk_reg_user xu ON xd.out_confirmed_by=xu.id
+        where xd.deleteFlag='0'
+        and str_to_date(xd.createDate,'%Y-%m-%d %H:%i:%s') BETWEEN
+        str_to_date(#{0},'%Y-%m-%d %H:%i:%s') and str_to_date(#{1},'%Y-%m-%d %H:%i:%s');
     </select>
 
 

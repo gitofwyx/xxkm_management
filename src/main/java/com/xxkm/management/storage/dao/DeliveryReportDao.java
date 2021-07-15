@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2017/3/15.
@@ -12,7 +13,7 @@ import java.util.List;
 @Repository
 public interface DeliveryReportDao {
 
-    public List<Delivery> getDeliveryReportSingleParam(String startDate, String endDate);
+    public List<Map<String, Object>> getDeliveryReportSingleParam(String startDate, String endDate);
 
 
 }

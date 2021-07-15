@@ -6,12 +6,14 @@ import com.xxkm.core.util.build_ident.IdentUtil;
 import com.xxkm.management.stock.entity.Stock;
 import com.xxkm.management.storage.dao.DeliveryDao;
 import com.xxkm.management.storage.entity.Delivery;
+import com.xxkm.management.storage.service.DeliveryReportService;
 import com.xxkm.management.storage.service.DeliveryService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +29,9 @@ public class DeliveryServiceImpl implements DeliveryService {
 
     @Autowired
     private DeliveryDao dao;
+
+    @Autowired
+    private DeliveryReportService deliveryReportService;
 
     @Override
     public List<Delivery> listDelivery(int pageStart, int pageSize) {
@@ -158,7 +163,17 @@ public class DeliveryServiceImpl implements DeliveryService {
     }
 
     @Override
-    public Map<String, Object> deliveryReport(Map<String, Object> resultMap) {
-        return null;
+    public Map<String, Object> deliveryReport(String startDate,String endDate) {
+
+        Map<String, Object> resultMap = new HashMap<>();
+        try{
+            List<Map<String, Object>> listDelivery=deliveryReportService.getDeliveryReportSingleParam(startDate,endDate);
+            resultMap.put("data", listDelivery);
+        }catch (Exception e) {
+            resultMap.put("hasError", true);
+            resultMap.put("error", "查询出错");
+            log.error(e);
+        }
+        return resultMap;
     }
 }

@@ -11,7 +11,7 @@ import java.util.Map;
  */
 public interface DeliveryReportService {
 
-    public List<Delivery> getDeliveryReportSingleParam(String startDate, String endDate);
+    public List<Map<String, Object>> getDeliveryReportSingleParam(String startDate, String eDate);
 
 
 }
