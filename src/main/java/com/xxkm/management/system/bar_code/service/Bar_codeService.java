@@ -15,20 +15,6 @@ public interface Bar_codeService {
 
     public int countDevice();
 
-    public List<Bar_code> listDeviceById(List<String> listDevId);
-
-    public boolean addDevice(Bar_code device);
-
-    public Bar_code getDeviceById(String deviceId);
-
-    public List<Map<String, Object>> getDeviceNumber(String deviceId);
-
-    public List<Map<String, Object>> getDeviceSelect();
-
-    public List<Map<String, Object>> getStoreDeviceById(List<String> listDevId);
-
-    public List<Map<String, Object>> getDeviceIdent();  //获取设备编号
-
-    public Stock makeStockByDevice(Stock stock);
+    public Map<String, Object> updateBar_codeForDevice(Bar_code bar_code) ;
 
 }

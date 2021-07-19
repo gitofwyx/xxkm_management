@@ -1,5 +1,6 @@
 package com.xxkm.management.system.bar_code.dao;
 
+import com.xxkm.management.stock.entity.Stock;
 import com.xxkm.management.system.bar_code.entity.Bar_code;
 import org.springframework.stereotype.Repository;
 
@@ -16,18 +17,6 @@ public interface Bar_codeDao {
 
     public int countDevice();
 
-    public List<Bar_code> listDeviceById(List<String> listDevId);
-
-    public int addDevice(Bar_code device);
-
-    public Bar_code getDeviceById(String deviceId);
-
-    public List<Map<String, Object>> getDeviceNumber(String deviceId);
-
-    public List<Map<String, Object>> getDeviceSelect();
-
-    public List<Map<String, Object>> getStoreDeviceById(List<String> listDevId);
-
-    public List<Map<String, Object>> getDeviceIdent();   //获取编号
+    public int addBar_code(Bar_code bar_code);
 
 }

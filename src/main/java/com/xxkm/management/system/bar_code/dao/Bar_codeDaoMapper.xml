@@ -23,39 +23,12 @@
         select count(id) from xxk_bar_code;
     </select>
 
-    <!--根据设备id列表获取设备列表 -->
-    <select id="listBar_codeById" resultType="com.xxkm.management.system.bar_code.entity.Bar_code" parameterType="java.util.List">
-        select
-        <include refid="columns"></include>
-        from xxk_bar_code
-        where id in
-        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
-            #{item}
-        </foreach>
-        and deleteFlag='0';
-    </select>
-
     <!--添加用户信息 -->
     <insert id="addBar_code" parameterType="com.xxkm.management.system.bar_code.entity.Bar_code">
         insert into xxk_bar_code(<include refid="columns"></include>) values(
-        #{id},#{stock_id},#{stock_entity_id},#{offices_entity_id},#{bar_code_ident},#{bar_code_type},
-        #{bar_code_genre},#{bar_code_by},#{bar_code_officeId},#{bar_code_date},#{bar_code_status},#{keyWord},
-        #{createUserId},#{createDate},#{updateUserId},#{updateDate},#{deleteFlag});
+        #{id},#{stock_id},#{stock_entity_id},#{offices_entity_id},#{bar_code_ident},#{bar_code_type},#{bar_code_genre},
+        #{bar_code_by},#{bar_code_officeId},#{bar_code_date},#{bar_code_status},#{keyWord},#{createUserId},#{createDate},
+        #{updateUserId},#{updateDate},#{deleteFlag});
     </insert>
-
-    <select id="getDeviceByIdent" parameterType="string" resultType="com.xxkm.management.system.bar_code.entity.Bar_code">
-        select
-        <include refid="columns"></include>
-        from xxk_bar_code where dev_ident=#{0} and deleteFlag='0';
-    </select>
-
-    <!--批量修改（批量逻辑删除） -->
-    <!--以下的批量方法只能删除数据表的一样数据-->
-    <update id="deleteListRegUser" parameterType="java.util.List">
-        UPDATE xxk_reg_user SET deleteFlag ='1' WHERE id IN
-        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
-            #{item}
-        </foreach>
-    </update>
 
 </mapper>
