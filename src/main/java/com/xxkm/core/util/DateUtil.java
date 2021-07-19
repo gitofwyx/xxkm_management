@@ -3,9 +3,7 @@ package com.xxkm.core.util;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.util.*;
 
 /**
  * Title: 用来转换时间的工具类
@@ -303,6 +301,70 @@ public class DateUtil {
     }
 
     /**
+     * 从当前时间"yyyy-MM-dd"格式获取上个月的时间
+     */
+    public static  Calendar getPreMonth(String startDate) throws Exception{
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar c = Calendar.getInstance();
+        Date date = format.parse(startDate);
+        c.setTime(date);
+        c.add(Calendar.MONTH, -1);
+        return c;
+    }
+
+    /**
+     * 从当前时间获取上个月的第一天
+     */
+    public static String getPreMonthStartDate(String startDate) throws Exception {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar c = getPreMonth(startDate);
+
+        //获取某月最小天数
+        int firstDay = c.getActualMinimum(Calendar.DAY_OF_MONTH);
+        //设置日历中月份的最小天数
+        c.set(Calendar.DAY_OF_MONTH, firstDay);
+        // 上个月第一天
+        String startTime = format.format(c.getTime());
+        return startTime;
+    }
+
+    /**
+     * 从当前时间获取上个月的最后一天
+     */
+    public static String getPreMonthEndDate(String startDate) throws Exception {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar c2 = getPreMonth(startDate);
+        int lastDay = c2.getActualMaximum(Calendar.DAY_OF_MONTH);
+        c2.set(Calendar.DAY_OF_MONTH, lastDay);
+        String endTime = format.format(c2.getTime());
+        return endTime;
+    }
+
+    /**
+     * 从当前时间获取上个月的第一天和最后一天
+     */
+    public static Map<String, String> getPreMonthDate(String startDate) throws Exception {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar c = getPreMonth(startDate);
+        Map<String, String> resultMap = new HashMap<>();
+
+        //获取某月最小天数
+        int firstDay = c.getActualMinimum(Calendar.DAY_OF_MONTH);
+        //设置日历中月份的最小天数
+        c.set(Calendar.DAY_OF_MONTH, firstDay);
+        // 上个月第一天
+        String startTime = format.format(c.getTime());
+        resultMap.put("startDate",startTime);
+
+        Calendar c2 = getPreMonth(startDate);
+        int lastDay = c2.getActualMaximum(Calendar.DAY_OF_MONTH);
+        c2.set(Calendar.DAY_OF_MONTH, lastDay);
+        String endTime = format.format(c2.getTime());
+        resultMap.put("endDate",endTime);
+        return resultMap;
+    }
+
+    /**
      * 返回YYYYMM
      *
      * @param date
@@ -313,6 +375,20 @@ public class DateUtil {
         String m = date.substring(5, 7);
         StringBuffer newDate = new StringBuffer();
         newDate.append(y).append("").append(m);
+        return newDate.toString();
+    }
+
+    /**
+     * 返回一个月的一号（00:00:00）
+     *
+     * @param date//当前日期加时间
+     * @return
+     */
+    public static String getMonthStartDate(String date) {
+        String y = date.substring(0, 4);
+        String m = date.substring(5, 7);
+        StringBuffer newDate = new StringBuffer();
+        newDate.append(y).append("-").append(m).append("-01 00:00:00");
         return newDate.toString();
     }
 
@@ -420,6 +496,10 @@ public class DateUtil {
      */
     public static String getFullTime() {
         return getCurrentDateTime("yyyy-MM-dd HH:mm:ss");
+    }
+
+    public static String getFullDay() {
+        return getCurrentDateTime("yyyy-MM-dd");
     }
 
     public static String getFullTime2() {
