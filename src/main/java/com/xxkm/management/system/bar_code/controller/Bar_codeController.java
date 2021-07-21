@@ -1,19 +1,26 @@
 package com.xxkm.management.system.bar_code.controller;
 
 import com.xxkm.core.file.BaseController;
+import com.xxkm.core.util.DateUtil;
 import com.xxkm.management.device.entity.Device;
+import com.xxkm.management.device.service.DeviceService;
 import com.xxkm.management.stock.entity.Stock;
 import com.xxkm.management.storage.entity.Delivery;
+import com.xxkm.management.storage.service.DeliveryReportService;
 import com.xxkm.management.system.bar_code.entity.Bar_code;
 import com.xxkm.management.system.bar_code.service.Bar_codeService;
+import com.xxkm.management.system.bar_code.service.StartPrintCheckOutService;
+import com.xxkm.management.system.bar_code.service.impl.StartPrintCheckOut;
 import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +39,15 @@ public class Bar_codeController extends BaseController {
 
     @Autowired
     private Bar_codeService bar_codeService;
+
+    @Autowired
+    private DeviceService deviceService;
+
+    @Autowired
+    private DeliveryReportService deliveryReportService;
+
+    @Autowired
+    private StartPrintCheckOutService startPrintCheckOutService;
     
     @ResponseBody
     @RequestMapping("/bar_code")
@@ -80,6 +96,55 @@ public class Bar_codeController extends BaseController {
                 result.put("error", "updateStock:获取stock_record_id出错");
                 log.error("updateStock:" + result.get("error"));
             }
+        } catch (Exception e) {
+            result.put("hasError", true);
+            result.put("error", "设备更新出错！"+e.getCause().getLocalizedMessage());
+            log.error(e);
+        }
+
+        return result;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/getDeviceByBar_code", method = RequestMethod.GET)
+    public Map<String, Object> getDeviceByBar_code(
+            @RequestParam(value = "bar_code_ident") String bar_code_ident) {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            String CurrentUserId = (String) SecurityUtils.getSubject().getSession().getAttribute("userId");
+
+            if (bar_code_ident != null && !"".equals(bar_code_ident)) {
+                Device device = deviceService.getDeviceByBar_code(bar_code_ident);
+                if(device==null||"".equals(device.getId())){
+                    result.put("status", 101);
+                    result.put("errorMSG", "updateStock:获取stock_record_id出错");
+                    return result;
+                }
+                result.put("data",device);
+            } else {
+                result.put("status", 101);
+                result.put("errorMSG", "updateStock:获取stock_record_id出错");
+                log.error("updateStock:" + result.get("error"));
+            }
+        } catch (Exception e) {
+            result.put("status", 101);
+            result.put("errorMSG", "updateStock:获取stock_record_id出错");
+            log.error(e);
+        }
+
+        return result;
+    }
+
+    @ResponseBody
+    @RequestMapping("/TestPrintJ")
+    public Map<String, Object> testPrintJ() {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            String createDate = DateUtil.getFullTime();
+            String startDate= DateUtil.getMonthStartDate(createDate);
+            String endDate=createDate;
+            ArrayList<Map<String, Object>> listDelivery=(ArrayList)deliveryReportService.getDeliveryReportSingleParam(startDate,endDate);
+            startPrintCheckOutService.printText2Action(listDelivery);
         } catch (Exception e) {
             result.put("hasError", true);
             result.put("error", "设备更新出错！"+e.getCause().getLocalizedMessage());

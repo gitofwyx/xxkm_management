@@ -49,6 +49,11 @@ public class DeviceServiceImpl implements DeviceService {
     }
 
     @Override
+    public Device getDeviceByBar_code(String Bar_code) {
+        return dao.getDeviceByBar_code(Bar_code);
+    }
+
+    @Override
     public List<Map<String, Object>> getDeviceNumber(String deviceId) {
         return dao.getDeviceNumber(deviceId);
     }

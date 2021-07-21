@@ -84,6 +84,14 @@
         from xxk_device where id=#{0} and deleteFlag='0';
     </select>
 
+    <select id="getDeviceByBar_code" parameterType="string" resultType="com.xxkm.management.device.entity.Device">
+        select
+        <include refid="columns"></include>
+        FROM xxk_management.xxk_device
+        where dev_ident = (
+        SELECT bar_code_ident FROM xxk_management.xxk_bar_code where bar_code_ident=#{0})
+    </select>
+
     <!--修改信息 -->
     <update id="updateRegUser" parameterType="com.xxkm.management.user.entity.RegUser">
         update xxk_device set account=#{account},birth=#{birth},sex=#{sex},phone=#{phone},createUnit=#{createUnit},

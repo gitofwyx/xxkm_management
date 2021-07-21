@@ -85,4 +85,6 @@ public class Bar_codeServiceImpl implements Bar_codeService {
         return result;
     }
 
+
+
 }

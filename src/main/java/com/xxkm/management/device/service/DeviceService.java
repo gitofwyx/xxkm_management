@@ -21,6 +21,8 @@ public interface DeviceService {
 
     public Device getDeviceById(String deviceId);
 
+    public Device getDeviceByBar_code(String Bar_code);
+
     public List<Map<String, Object>> getDeviceNumber(String deviceId);
 
     public List<Map<String, Object>> getDeviceSelect();
