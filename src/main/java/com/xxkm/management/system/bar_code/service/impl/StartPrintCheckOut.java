@@ -11,6 +11,7 @@ import java.awt.Graphics;
 
 import java.awt.Graphics2D;
 
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
 
 import java.awt.print.Book;
@@ -116,6 +117,8 @@ public class StartPrintCheckOut implements StartPrintCheckOutService {
 
         g2.setFont(f4);
 
+        g2.rotate(Math.PI, pf.getWidth()/2, pf.getHeight()/2);//以A4纸的中心旋转360度（取PageFormat宽和高的一半得到旋转中心点）
+
         for (int j = 0; j < list.size(); j++) {
 
             //CheckOutVo vo1 = (CheckOutVo) list.get(j);
@@ -139,12 +142,6 @@ public class StartPrintCheckOut implements StartPrintCheckOutService {
             //sum += vo1.getPrice_sum();
 
         }
-
-        height += 15;
-
-        height += 35;
-
-        g2.drawString("" + ".", 68, height - 5);
 
         //g2.drawLine((int)(90.00 + (list.size() * 35)), 35, 135, 35);
 
